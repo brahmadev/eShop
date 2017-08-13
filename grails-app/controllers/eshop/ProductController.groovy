@@ -5,7 +5,7 @@ import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 
-class ProductController {
+class ProductController extends BaseController{
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -145,4 +145,5 @@ class ProductController {
     def searchBar={
         render(view: 'productDetails',model: [productList: Product.findAllByNameLikeOrManufacturerLike('%'+params.name+'%','%'+params.name+'%')])
     }
+    def beforeInterceptor=[action: this.&auth,except:['productDetails','showCart','searchBar','search']]
 }

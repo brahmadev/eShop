@@ -2,7 +2,7 @@ package eshop
 
 import org.springframework.dao.DataIntegrityViolationException
 
-class UserController {
+class UserController extends BaseController{
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -127,4 +127,6 @@ class UserController {
             redirect(action: "show", id: id)
         }
     }
+
+    def beforeInterceptor=[action: this.&auth,except:['loginForm','login','logout']]
 }

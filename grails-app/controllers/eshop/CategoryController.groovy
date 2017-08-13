@@ -2,7 +2,7 @@ package eshop
 
 import org.springframework.dao.DataIntegrityViolationException
 
-class CategoryController {
+class CategoryController extends BaseController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -99,4 +99,5 @@ class CategoryController {
             redirect(action: "show", id: id)
         }
     }
+    def beforeInterceptor=[action: this.&auth]
 }
