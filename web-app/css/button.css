@@ -1,0 +1,18 @@
+.button-wrapper{
+    margin-top: 20px;
+}
+
+.button-wrapper .btn{
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.button-wrapper .items{
+    font-size: 16px;
+    background-color: #0fcef1;
+    padding:0px 6px;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+}
