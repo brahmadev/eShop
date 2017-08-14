@@ -1,6 +1,8 @@
 package eshop
 
 import org.apache.tomcat.jni.File
+import org.json.simple.JSONArray
+import org.json.simple.parser.JSONParser
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import org.springframework.web.multipart.commons.CommonsMultipartFile
@@ -145,5 +147,22 @@ class ProductController extends BaseController{
     def searchBar={
         render(view: 'productDetails',model: [productList: Product.findAllByNameLikeOrManufacturerLike('%'+params.name+'%','%'+params.name+'%')])
     }
-    def beforeInterceptor=[action: this.&auth,except:['productDetails','showCart','searchBar','search']]
+    def beforeInterceptor=[action: this.&auth,except:['productDetails','showCart','searchBar','search','sendEmail']]
+    def groovyPageRenderer
+    def mailService
+    def sendEmail() {
+
+        mailService.sendMail {
+            String jsonCartData= params.cartData;
+            JSONParser parser = new JSONParser();
+            JSONArray array = (JSONArray)parser.parse(jsonCartData);
+            def content= groovyPageRenderer.render(view:'/product/myTemplate',model: [myList: array]);
+            to "vedmasb@gmail.com"
+            subject "This is a test mail"
+//            body bodyString;
+            html (content);
+        }
+
+        forward(action: 'productDetails')
+    }
 }

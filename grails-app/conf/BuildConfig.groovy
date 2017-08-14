@@ -61,4 +61,11 @@ grails.project.dependency.resolution = {
 
         compile ':cache:1.0.1'
     }
+    repositories {
+        mavenRepo "https://repo.grails.org/grails/plugins"
+    }
+
+    plugins {
+        compile ":mail:1.0.7"
+    }
 }
